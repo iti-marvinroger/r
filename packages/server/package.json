@@ -4,12 +4,14 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
+    "@prisma/photon": "2.0.0-preview019",
     "apollo-server": "^2.9.15",
     "graphql": "^14.5.8"
   },
   "devDependencies": {
     "@types/node-fetch": "^2.5.4",
     "nodemon": "^2.0.2",
+    "prisma2": "^2.0.0-preview019",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.4"
   },

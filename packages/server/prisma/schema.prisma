@@ -1,0 +1,37 @@
+generator photon {
+  provider = "photonjs"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:dev.db"
+}
+
+model Flight {
+  id    String  @default(cuid()) @id
+  origin String
+  destination String
+  date DateTime
+
+  businessInitialPrice Int
+  businessSeats Int
+  businessNextPriceRatio Int
+  ecoInitialPrice Int
+  ecoSeats Int
+  ecoNextPriceRatio Int
+}
+
+enum Class {
+  ECO
+  BUSINESS
+}
+
+model Seat {
+  id    String  @default(cuid()) @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  flight Flight
+  class Class
+
+  name String
+}

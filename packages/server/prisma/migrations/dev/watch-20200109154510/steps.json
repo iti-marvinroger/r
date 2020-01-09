@@ -1,0 +1,19 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "CreateField",
+      "model": "Flight",
+      "field": "businessNextPriceRatio",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Flight",
+      "field": "ecoNextPriceRatio",
+      "type": "Int",
+      "arity": "Required"
+    }
+  ]
+}

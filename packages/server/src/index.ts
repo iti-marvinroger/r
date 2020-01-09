@@ -1,4 +1,8 @@
+import { Photon } from "@prisma/photon";
 import { ApolloServer, gql } from "apollo-server";
+import dateScalar from "./scalars/date";
+
+const photon = new Photon();
 
 const typeDefs = gql`
   scalar Date
@@ -22,7 +26,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    allFlights(date: String!): [Flight!]!
+    allFlights(date: Date!): [Flight!]!
   }
 `;
 
@@ -42,14 +46,31 @@ const flights = [
 ];
 
 const resolvers = {
+  ...dateScalar,
   Query: {
-    allFlights: () => flights
+    allFlights: async (parent: any, args: any, context: any) => {
+      const flights = await photon.flights.findMany({
+        where: { date: args.date }
+      });
+
+      return flights.map(flight => ({
+        id: flight.id,
+        origin: flight.origin,
+        destination: flight.destination,
+        availableSeats: []
+      }));
+    }
   }
 };
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
-// The `listen` method launches a web server.
-server.listen().then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`);
-});
+async function main() {
+  await photon.connect();
+
+  server.listen().then(({ url }) => {
+    console.log(`🚀  Server ready at ${url}`);
+  });
+}
+
+main().catch(e => console.error(e));
