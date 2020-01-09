@@ -3,14 +3,12 @@ import { storiesOf } from "@storybook/react";
 import {
   Box,
   Button,
-  Grommet,
   Keyboard,
   Text,
   Calendar,
   MaskedInput,
   DropButton
 } from "grommet";
-import { grommet } from "grommet/themes";
 import { Schedule } from "grommet-icons";
 
 interface IDropContent {
@@ -117,27 +115,23 @@ export const DateTimeDropButton = () => {
   };
 
   return (
-    <Grommet theme={grommet}>
-      <Box align="start" pad="large">
-        <DropButton
-          open={open}
-          onClose={() => setOpen(false)}
-          onOpen={() => setOpen(true)}
-          dropContent={
-            <DropContent date={date} time={time} onClose={onClose} />
-          }
-        >
-          <Box direction="row" gap="medium" align="center" pad="small">
-            <Text color={date ? undefined : "dark-5"}>
-              {date
-                ? `${new Date(date).toLocaleDateString()} ${time}`
-                : "Select date & time"}
-            </Text>
-            <Schedule />
-          </Box>
-        </DropButton>
-      </Box>
-    </Grommet>
+    <Box align="start" pad="large">
+      <DropButton
+        open={open}
+        onClose={() => setOpen(false)}
+        onOpen={() => setOpen(true)}
+        dropContent={<DropContent date={date} time={time} onClose={onClose} />}
+      >
+        <Box direction="row" gap="medium" align="center" pad="small">
+          <Text color={date ? undefined : "dark-5"}>
+            {date
+              ? `${new Date(date).toLocaleDateString()} ${time}`
+              : "Select date & time"}
+          </Text>
+          <Schedule />
+        </Box>
+      </DropButton>
+    </Box>
   );
 };
 

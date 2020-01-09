@@ -1,13 +1,14 @@
-// import ReactDOM from "react-dom";
-// import { createBrowserHistory } from "history";
-// import { Router, Route, Switch } from "react-router-dom";
+import { Grommet } from "grommet";
+import { grommet } from "grommet/themes";
 import React from "react";
 import { Dashboard } from "./Views/Dashboard";
-// import logo from "./logo.svg";
-import "./App.css";
 
 const App: React.FC = () => {
-  return <Dashboard />;
+  return (
+    <Grommet theme={grommet}>
+      <Dashboard />
+    </Grommet>
+  );
 };
 
 export default App;
