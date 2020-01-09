@@ -12,9 +12,9 @@ export class SearchFlight extends React.Component {
           columns={["small", "auto", "small"]}
           gap="small"
           areas={[
-            { name: "header", start: [0, 0], end: [0, 0] },
-            { name: "nav", start: [1, 0], end: [1, 0] },
-            { name: "main", start: [2, 0], end: [2, 0] }
+            { name: "airport", start: [0, 0], end: [0, 0] },
+            { name: "date", start: [1, 0], end: [1, 0] },
+            { name: "submit", start: [2, 0], end: [2, 0] }
           ]}
         >
           <SimpleMenu />
@@ -31,9 +31,9 @@ export class SearchFlight extends React.Component {
           columns={["small", "auto", "small"]}
           gap="small"
           areas={[
-            { name: "header", start: [0, 0], end: [0, 0] },
-            { name: "nav", start: [1, 0], end: [1, 0] },
-            { name: "main", start: [2, 0], end: [2, 0] }
+            { name: "airport", start: [0, 0], end: [0, 0] },
+            { name: "date", start: [1, 0], end: [1, 0] },
+            { name: "submit", start: [2, 0], end: [2, 0] }
           ]}
         >
           <SimpleMenu />
