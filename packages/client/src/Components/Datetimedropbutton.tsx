@@ -126,7 +126,7 @@ export const DateTimeDropButton = () => {
           <Text color={date ? undefined : "dark-5"}>
             {date
               ? `${new Date(date).toLocaleDateString()} ${time}`
-              : "Select date & time"}
+              : " date & heure"}
           </Text>
           <Schedule />
         </Box>
