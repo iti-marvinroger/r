@@ -4,7 +4,7 @@ import { DateTimeDropButton } from "../Components/Datetimedropbutton";
 import { SimpleCheckBox } from "../Components/SimpleCheckBox";
 import { Grid, Form, Button, Box } from "grommet";
 
-export class SearchFlight extends React.Component {
+export class SearchFlight extends React.Component<{}, { items: any }> {
   constructor(props: any) {
     super(props);
 
@@ -17,7 +17,7 @@ export class SearchFlight extends React.Component {
     };
   }
   render() {
-    // const { items } = this.state; // *TODO*
+    const items = this.state.items;
 
     return (
       <Grid
@@ -31,8 +31,8 @@ export class SearchFlight extends React.Component {
           { name: "submit", start: [3, 0], end: [3, 0] }
         ]}
       >
-        <SimpleMenu depart={true} /> {/*TODO items={items} */}
-        <SimpleMenu depart={false} /> {/*TODO items={items} */}
+        <SimpleMenu depart={true} items={items} />
+        <SimpleMenu depart={false} items={items} />
         <DateTimeDropButton />
         <SimpleCheckBox label="1er Classe" toggle />
         <Box align="start" pad="large">

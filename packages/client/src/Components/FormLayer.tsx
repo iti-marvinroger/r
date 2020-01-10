@@ -3,21 +3,10 @@ import { storiesOf } from "@storybook/react";
 
 import { Add, Close } from "grommet-icons";
 
-import {
-  Box,
-  Button,
-  FormField,
-  Heading,
-  Layer,
-  Select,
-  TextArea,
-  TextInput,
-  Text
-} from "grommet";
+import { Box, Button, FormField, Heading, Layer, TextInput } from "grommet";
 
 export const FormLayer = () => {
   const [open, setOpen] = React.useState(false);
-  const [select, setSelect] = React.useState("");
 
   const onOpen = () => setOpen(true);
 

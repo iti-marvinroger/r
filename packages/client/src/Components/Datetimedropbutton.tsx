@@ -100,19 +100,6 @@ export const DateTimeDropButton = () => {
     setOpen(false);
     setTimeout(() => setOpen(undefined), 1);
   };
-  const theme = {
-    button: {
-      border: {
-        width: "5px",
-        radius: "0"
-      },
-      padding: {
-        vertical: "1rem",
-        horizontal: "2rem"
-      },
-      display: "inline"
-    }
-  };
 
   return (
     <Box align="start" pad="large">
