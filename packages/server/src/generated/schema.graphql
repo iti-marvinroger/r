@@ -2,6 +2,13 @@
 ### Do not make changes to this file directly
 
 
+type AvailableFlight {
+  availableSeats: [Seat!]!
+  destination: String!
+  id: ID!
+  origin: String!
+}
+
 enum ClassEnum {
   BUSINESS
   ECO
@@ -10,15 +17,8 @@ enum ClassEnum {
 """A date"""
 scalar Date
 
-type Flight {
-  availableSeats: [Seat!]!
-  destination: String!
-  id: ID!
-  origin: String!
-}
-
 type Query {
-  allFlights(date: Date!): [Flight!]!
+  allAvailableFlights(date: Date!): [AvailableFlight!]!
 }
 
 type Seat {

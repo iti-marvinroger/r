@@ -4,14 +4,14 @@ generator photon {
 
 datasource db {
   provider = "sqlite"
-  url      = "file:dev.db"
+  url = "***"
 }
 
-model FlightRule {
+model Flight {
   id    String  @default(cuid()) @id
-  flightId String
   origin String
   destination String
+  date DateTime
 
   businessInitialPrice Int
   businessSeats Int
@@ -19,13 +19,6 @@ model FlightRule {
   ecoInitialPrice Int
   ecoSeats Int
   ecoNextPriceRatio Int
-}
-
-model Flight {
-  id    String  @default(cuid()) @id
-  date DateTime
-
-  rule FlightRule
 
   seats Seat[]
 }

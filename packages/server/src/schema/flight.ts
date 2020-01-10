@@ -1,9 +1,10 @@
 import { arg, enumType, extendType, objectType } from "nexus";
+import * as flightService from "../services/flight";
 import { DateScalar } from "./scalar";
 import { Seat } from "./seat";
 
-export const Flight = objectType({
-  name: "Flight",
+export const AvailableFlight = objectType({
+  name: "AvailableFlight",
   definition(t) {
     t.id("id");
     t.string("origin");
@@ -21,35 +22,25 @@ export const ClassEnum = enumType({
 export const Query = extendType({
   type: "Query",
   definition(t) {
-    t.list.field("allFlights", {
-      type: Flight,
+    t.list.field("allAvailableFlights", {
+      type: AvailableFlight,
       args: {
         date: arg({ type: DateScalar, nullable: false })
       },
       async resolve(root, args, ctx) {
-        // await ctx.photon.flights.create({
-        //   data: {
-        //     origin: "CDG",
-        //     destination: "JFK",
-        //     date: new Date("2020-01-20"),
-        //     businessInitialPrice: 100000,
-        //     businessNextPriceRatio: 3,
-        //     businessSeats: 2,
-        //     ecoInitialPrice: 30000,
-        //     ecoNextPriceRatio: 3,
-        //     ecoSeats: 100
-        //   }
-        // });
+        const availableFlights = await flightService.getAvailableFlights(
+          ctx,
+          args.date
+        );
 
-        const flights = await ctx.photon.flights.findMany({
-          where: { date: args.date }
-        });
-
-        return flights.map(flight => ({
+        return availableFlights.map(flight => ({
           id: flight.id,
           origin: flight.origin,
           destination: flight.destination,
-          availableSeats: []
+          availableSeats: Object.entries(flight.seats).map(seat => ({
+            class: seat[0] as any,
+            price: seat[1].price
+          }))
         }));
       }
     });

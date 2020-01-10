@@ -29,7 +29,7 @@ export interface NexusGenEnums {
 }
 
 export interface NexusGenRootTypes {
-  Flight: { // root type
+  AvailableFlight: { // root type
     availableSeats: NexusGenRootTypes['Seat'][]; // [Seat!]!
     destination: string; // String!
     id: string; // ID!
@@ -53,14 +53,14 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
 }
 
 export interface NexusGenFieldTypes {
-  Flight: { // field return type
+  AvailableFlight: { // field return type
     availableSeats: NexusGenRootTypes['Seat'][]; // [Seat!]!
     destination: string; // String!
     id: string; // ID!
     origin: string; // String!
   }
   Query: { // field return type
-    allFlights: NexusGenRootTypes['Flight'][]; // [Flight!]!
+    allAvailableFlights: NexusGenRootTypes['AvailableFlight'][]; // [AvailableFlight!]!
   }
   Seat: { // field return type
     class: NexusGenEnums['ClassEnum']; // ClassEnum!
@@ -70,7 +70,7 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenArgTypes {
   Query: {
-    allFlights: { // args
+    allAvailableFlights: { // args
       date: any; // Date!
     }
   }
@@ -81,7 +81,7 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Flight" | "Query" | "Seat";
+export type NexusGenObjectNames = "AvailableFlight" | "Query" | "Seat";
 
 export type NexusGenInputNames = never;
 
