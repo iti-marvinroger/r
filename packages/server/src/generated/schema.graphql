@@ -17,6 +17,10 @@ enum ClassEnum {
 """A date"""
 scalar Date
 
+type Mutation {
+  bookFlight(class: ClassEnum!, date: Date!, expectedPrice: Int!, flightId: String!, name: String!): Boolean!
+}
+
 type Query {
   allAvailableFlights(date: Date!): [AvailableFlight!]!
 }

@@ -1,4 +1,4 @@
-import { FlightRule } from "@prisma/photon";
+import { Flight, FlightRule } from "@prisma/photon";
 import { Context } from "../context";
 
 interface AvailableFlight {
@@ -138,12 +138,35 @@ export const bookFlight = async (
     return false;
   }
 
-  // FIXME
-  //   const existingFlight = await ctx.photon.flights.findOne();
+  if (flightAvailability.price !== opts.price) {
+    return false;
+  }
 
-  //   await ctx.photon.seats.create({
-  //     data: { class: opts.classType as any, name: opts.name }
-  //   });
+  const existingFlight = await ctx.photon.flights.findMany({
+    where: { date: opts.date, rule: { flightId: opts.flightId } }
+  });
+
+  let flight: Flight;
+  if (existingFlight.length === 0) {
+    const latestRule = await ctx.photon.flightRules.findMany({
+      last: 1,
+      where: { flightId: opts.flightId }
+    });
+
+    flight = await ctx.photon.flights.create({
+      data: { date: opts.date, rule: { connect: { id: latestRule[0].id } } }
+    });
+  } else {
+    flight = existingFlight[0];
+  }
+
+  await ctx.photon.seats.create({
+    data: {
+      class: opts.classType as any,
+      name: opts.name,
+      flight: { connect: { id: flight.id } }
+    }
+  });
 
   return true;
 };

@@ -1,4 +1,11 @@
-import { arg, enumType, extendType, objectType } from "nexus";
+import {
+  arg,
+  enumType,
+  extendType,
+  intArg,
+  objectType,
+  stringArg
+} from "nexus";
 import * as flightService from "../services/flight";
 import { DateScalar } from "./scalar";
 import { Seat } from "./seat";
@@ -42,6 +49,32 @@ export const Query = extendType({
             price: seat[1].price
           }))
         }));
+      }
+    });
+  }
+});
+
+export const Mutation = extendType({
+  type: "Mutation",
+  definition(t) {
+    t.boolean("bookFlight", {
+      args: {
+        date: arg({ type: DateScalar, nullable: false }),
+        flightId: stringArg({ nullable: false }),
+        class: arg({ type: ClassEnum, nullable: false }),
+        expectedPrice: intArg({ nullable: false }),
+        name: stringArg({ nullable: false })
+      },
+      async resolve(root, args, ctx) {
+        const bookingResult = await flightService.bookFlight(ctx, {
+          date: args.date,
+          flightId: args.flightId,
+          price: args.expectedPrice,
+          classType: args.class,
+          name: args.name
+        });
+
+        return bookingResult;
       }
     });
   }
