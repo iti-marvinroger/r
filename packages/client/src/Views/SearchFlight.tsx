@@ -4,20 +4,36 @@ import { DateTimeDropButton } from "../Components/Datetimedropbutton";
 import { SimpleCheckBox } from "../Components/SimpleCheckBox";
 import { Grid, Form, Button, Box } from "grommet";
 
-export class SearchFlight extends React.Component<{}, { items: any }> {
+export class SearchFlight extends React.Component<
+  {},
+  { items: any; date: string }
+> {
   constructor(props: any) {
     super(props);
 
     this.state = {
-      items: [
-        { label: "JFK", onClick: () => {} },
-        { label: "CDG", onClick: () => {} },
-        { label: "DTW", onClick: () => {} }
-      ]
+      items: [],
+      date: ""
     };
+
+    this.handleDate = this.handleDate.bind(this);
   }
-  render() {
-    const items = this.state.items;
+
+  handleDate = (newDate: string): void => {
+    this.setState({ date: newDate });
+    console.log(this.state.date);
+  };
+
+  componentDidMount(): void {
+    fetch("http://localhost:3004/items", {
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(res => res.json())
+      .then(json => this.setState({ items: json }));
+  }
+
+  render(): any {
+    const { items } = this.state;
 
     return (
       <Grid
@@ -33,7 +49,7 @@ export class SearchFlight extends React.Component<{}, { items: any }> {
       >
         <SimpleMenu depart={true} items={items} />
         <SimpleMenu depart={false} items={items} />
-        <DateTimeDropButton />
+        <DateTimeDropButton handleDate={this.handleDate} />
         <SimpleCheckBox label="1er Classe" toggle />
         <Box align="start" pad="large">
           <Form>

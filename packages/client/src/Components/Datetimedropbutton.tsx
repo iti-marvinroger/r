@@ -1,29 +1,25 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import {
-  Box,
-  Button,
-  Keyboard,
-  Text,
-  Calendar,
-  MaskedInput,
-  DropButton
-} from "grommet";
+import { Box, Button, Text, Calendar, DropButton } from "grommet";
 import { Schedule } from "grommet-icons";
 
 interface IDropContent {
-  date: any;
-  time: any;
+  date: string;
+  onClose: any;
+  handleDate: any;
 }
-const DropContent = ({
+const DropContent: any = ({
   date: initialDate,
-  time: initialTime,
-  onClose
-}: any) => {
+  onClose,
+  handleDate
+}: //
+IDropContent) => {
   const [date, setDate] = React.useState();
-  const [time, setTime] = React.useState();
 
-  const close = () => onClose(date || initialDate, time || initialTime);
+  const close: any = () => {
+    onClose(date || initialDate);
+    handleDate(date);
+  };
 
   return (
     <Box align="center">
@@ -34,53 +30,6 @@ const DropContent = ({
         showAdjacentDays={false}
       />
       <Box flex={false} pad="medium" gap="medium">
-        <Keyboard
-          onEnter={event => {
-            event.preventDefault(); // so drop doesn't re-open
-            close();
-          }}
-        >
-          <MaskedInput
-            mask={[
-              {
-                length: [1, 2],
-                options: [
-                  "1",
-                  "2",
-                  "3",
-                  "4",
-                  "5",
-                  "6",
-                  "7",
-                  "8",
-                  "9",
-                  "10",
-                  "11",
-                  "12"
-                ],
-                regexp: /^1[1-2]$|^[0-9]$/,
-                placeholder: "hh"
-              },
-              { fixed: ":" },
-              {
-                length: 2,
-                options: ["00", "15", "30", "45"],
-                regexp: /^[0-5][0-9]$|^[0-9]$/,
-                placeholder: "mm"
-              },
-              { fixed: " " },
-              {
-                length: 2,
-                options: ["am", "pm"],
-                regexp: /^[ap]m$|^[AP]M$|^[aApP]$/,
-                placeholder: "ap"
-              }
-            ]}
-            value={time || initialTime}
-            name="maskedInput"
-            onChange={event => setTime(event.target.value)}
-          />
-        </Keyboard>
         <Box flex={false}>
           <Button label="Done" onClick={close} />
         </Box>
@@ -89,39 +38,58 @@ const DropContent = ({
   );
 };
 
-export const DateTimeDropButton = () => {
-  const [date, setDate] = React.useState();
-  const [time, setTime] = React.useState("");
-  const [open, setOpen] = React.useState();
+export class DateTimeDropButton extends React.Component<
+  { handleDate: any },
+  { date: string; open: any }
+> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      date: "",
+      open: false
+    };
 
-  const onClose = (nextDate: any, nextTime: any) => {
-    setDate(nextDate);
-    setTime(nextTime);
-    setOpen(false);
-    setTimeout(() => setOpen(undefined), 1);
+    this.onClose = this.onClose.bind(this);
+  }
+
+  onClose: any = (nextDate: string) => {
+    this.setState({ date: nextDate });
+    this.setState({ open: false });
+    setTimeout(() => this.setState({ open: undefined }), 1);
   };
 
-  return (
-    <Box align="start" pad="large">
-      <DropButton
-        open={open}
-        onClose={() => setOpen(false)}
-        onOpen={() => setOpen(true)}
-        dropContent={<DropContent date={date} time={time} onClose={onClose} />}
-      >
-        <Box direction="row" gap="medium" align="center" pad="small">
-          <Text color={date ? undefined : "dark-5"}>
-            {date
-              ? `${new Date(date).toLocaleDateString()} ${time}`
-              : " date & heure"}
-          </Text>
-          <Schedule />
-        </Box>
-      </DropButton>
-    </Box>
-  );
-};
+  render(): any {
+    const { date, open } = this.state;
+    const { handleDate } = this.props;
+
+    return (
+      <Box align="start" pad="large">
+        <DropButton
+          open={open}
+          onClose={() => this.setState({ open: false })}
+          onOpen={() => this.setState({ open: true })}
+          dropContent={
+            <DropContent
+              date={date}
+              onClose={this.onClose}
+              handleDate={handleDate}
+            ></DropContent>
+          }
+        >
+          <Box direction="row" gap="medium" align="center" pad="small">
+            <Text color={date ? undefined : "dark-5"}>
+              {date
+                ? `${new Date(date).toLocaleDateString()}`
+                : " date & heure"}
+            </Text>
+            <Schedule />
+          </Box>
+        </DropButton>
+      </Box>
+    );
+  }
+}
 
 storiesOf("MaskedInput", module).add("Date Time Drop", () => (
-  <DateTimeDropButton />
+  <DateTimeDropButton handleDate />
 ));

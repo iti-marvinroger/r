@@ -1,9 +1,9 @@
 import React from "react";
-import { SearchFlight } from "./SeachFlight";
+import { SearchFlight } from "./SearchFlight";
 import { ListFlight } from "./ListFlight";
 
 export class Dashboard extends React.Component {
-  render() {
+  render(): any {
     return (
       <>
         <SearchFlight />

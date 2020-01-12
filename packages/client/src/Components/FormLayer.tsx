@@ -5,12 +5,12 @@ import { Add, Close } from "grommet-icons";
 
 import { Box, Button, FormField, Heading, Layer, TextInput } from "grommet";
 
-export const FormLayer = () => {
+export const FormLayer: any = () => {
   const [open, setOpen] = React.useState(false);
 
-  const onOpen = () => setOpen(true);
+  const onOpen: any = () => setOpen(true);
 
-  const onClose = () => setOpen(false);
+  const onClose: any = () => setOpen(false);
 
   return (
     <>
