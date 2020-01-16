@@ -6,5 +6,7 @@ export const Seat = objectType({
   definition(t) {
     t.field("class", { type: ClassEnum });
     t.int("price");
+    t.int("available");
+    t.int("total");
   }
 });

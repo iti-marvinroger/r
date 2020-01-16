@@ -38,8 +38,10 @@ export interface NexusGenRootTypes {
   Mutation: {};
   Query: {};
   Seat: { // root type
+    available: number; // Int!
     class: NexusGenEnums['ClassEnum']; // ClassEnum!
     price: number; // Int!
+    total: number; // Int!
   }
   String: string;
   Int: number;
@@ -67,8 +69,10 @@ export interface NexusGenFieldTypes {
     allAvailableFlights: NexusGenRootTypes['AvailableFlight'][]; // [AvailableFlight!]!
   }
   Seat: { // field return type
+    available: number; // Int!
     class: NexusGenEnums['ClassEnum']; // ClassEnum!
     price: number; // Int!
+    total: number; // Int!
   }
 }
 

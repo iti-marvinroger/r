@@ -46,7 +46,9 @@ export const Query = extendType({
           destination: flight.destination,
           availableSeats: Object.entries(flight.seats).map(seat => ({
             class: seat[0] as any,
-            price: seat[1].price
+            price: seat[1].price,
+            available: seat[1].available,
+            total: seat[1].total
           }))
         }));
       }
