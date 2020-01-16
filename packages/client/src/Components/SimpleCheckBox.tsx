@@ -4,22 +4,31 @@ import { storiesOf } from "@storybook/react";
 import { Box, Grommet, CheckBox } from "grommet";
 import { grommet } from "grommet/themes";
 
-export const SimpleCheckBox = ({ checked: checkedProp, ...rest }: any) => {
-  const [checked, setChecked] = useState(!!checkedProp);
-  const onChange = (event: any) => setChecked(event.target.checked);
+export const SimpleCheckBox = (props: {
+  handleFirstClass: any;
+  label: string;
+  toggle: boolean;
+}) => {
+  const [checked, setChecked] = useState(true);
+  const onChange = () => setChecked(!checked);
 
   return (
     <Grommet theme={grommet}>
       <Box align="center" pad="large">
-        <CheckBox {...rest} checked={checked} onChange={onChange} />
+        <CheckBox
+          label={props.label}
+          toggle={props.toggle}
+          checked={checked}
+          onChange={() => {
+            onChange();
+            props.handleFirstClass();
+          }}
+        />
       </Box>
     </Grommet>
   );
 };
 
-storiesOf("CheckBox", module)
-  .add("Simple", () => <SimpleCheckBox label="Choice" />)
-  .add("Toggle", () => <SimpleCheckBox label="Choice" toggle />)
-  .add("Disabled", () => <SimpleCheckBox label="Choice" checked disabled />)
-  .add("Reverse", () => <SimpleCheckBox label="Choice" reverse />)
-  .add("No Label", () => <SimpleCheckBox />);
+storiesOf("CheckBox", module).add("Toggle", () => (
+  <SimpleCheckBox handleFirstClass label="Choice" toggle />
+));

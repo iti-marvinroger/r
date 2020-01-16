@@ -1,38 +1,50 @@
-export const DATA = [
+import React from "react";
+import { Box, Text, Meter } from "grommet";
+import { BuyFlight } from "../Views/BuyFlight";
+
+export const columns: any = [
   {
-    NumVols: "00012",
-    departLocation: "JFK",
-    departHour: "01/01/2020 15:23",
-    arriverLocation: "CDG",
-    ArriverHour: "03/01/2020 18:23",
-    percent: 20,
-    prix: "2000"
+    property: "NumVols",
+    header: <Text>NumVols</Text>,
+    primary: true
+  },
+
+  {
+    property: "departLocation",
+    header: <Text>Départ</Text>
   },
   {
-    NumVols: "00689",
-    departLocation: "DTW",
-    departHour: "01/01/2020 15:23",
-    arriverLocation: "CDG",
-    ArriverHour: "03/01/2020 18:23",
-    percent: 40,
-    prix: "2000"
+    property: "departHour",
+    header: <Text>Heure départ</Text>
   },
   {
-    NumVols: "00587",
-    departLocation: "JFK",
-    departHour: "01/01/2020 15:23",
-    arriverLocation: "DTW",
-    ArriverHour: "03/01/2020 18:23",
-    percent: 90,
-    prix: "2000"
+    property: "arriverLocation",
+    header: <Text>Arriver</Text>
   },
   {
-    NumVols: "00658",
-    departLocation: "JFK",
-    departHour: "01/01/2020 15:23",
-    arriverLocation: "CDG",
-    ArriverHour: "03/01/2020 18:23",
-    percent: 30,
-    prix: "2000"
+    property: "ArriverHour",
+    header: <Text>Heure arriver</Text>
+  },
+  {
+    property: "percent",
+    header: "Remplissage",
+    render: (datum: any) => (
+      <Box pad={{ vertical: "xsmall" }}>
+        <Meter
+          values={[{ value: datum.percent }]}
+          thickness="small"
+          size="small"
+        />
+      </Box>
+    )
+  },
+  {
+    property: "prix",
+    header: <Text>Prix</Text>
+  },
+  {
+    property: "show",
+    header: <Text>Show</Text>,
+    render: (flight: any) => <BuyFlight flight={flight} />
   }
 ];
