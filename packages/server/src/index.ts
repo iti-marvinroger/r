@@ -2,6 +2,7 @@ import { Photon } from "@prisma/photon";
 import { ApolloServer } from "apollo-server";
 import { makeSchema } from "nexus";
 import * as path from "path";
+import { migrate } from "./migrate";
 import * as allTypes from "./schema";
 
 const schema = makeSchema({
@@ -24,6 +25,8 @@ const server = new ApolloServer({ schema, context: { photon } });
 
 async function main() {
   await photon.connect();
+
+  await migrate(photon);
 
   server.listen().then(({ url }) => {
     console.log(`🚀 Server ready at ${url}`);

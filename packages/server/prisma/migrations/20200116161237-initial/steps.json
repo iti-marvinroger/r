@@ -4,10 +4,146 @@
     {
       "tag": "CreateEnum",
       "enum": "Class",
-      "values": [
-        "ECO",
-        "BUSINESS"
-      ]
+      "values": ["ECO", "BUSINESS"]
+    },
+    {
+      "tag": "CreateSource",
+      "source": "db"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Source",
+        "source": "db"
+      },
+      "argument": "provider",
+      "value": "\"sqlite\""
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Source",
+        "source": "db"
+      },
+      "argument": "url",
+      "value": "\"file:dev.db\""
+    },
+    {
+      "tag": "CreateModel",
+      "model": "FlightRule"
+    },
+    {
+      "tag": "CreateField",
+      "model": "FlightRule",
+      "field": "id",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "FlightRule",
+          "field": "id"
+        },
+        "directive": "default"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "FlightRule",
+          "field": "id"
+        },
+        "directive": "default"
+      },
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "FlightRule",
+          "field": "id"
+        },
+        "directive": "id"
+      }
+    },
+    {
+      "tag": "CreateField",
+      "model": "FlightRule",
+      "field": "flightId",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "FlightRule",
+      "field": "origin",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "FlightRule",
+      "field": "destination",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "FlightRule",
+      "field": "businessInitialPrice",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "FlightRule",
+      "field": "businessSeats",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "FlightRule",
+      "field": "businessNextPriceRatio",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "FlightRule",
+      "field": "ecoInitialPrice",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "FlightRule",
+      "field": "ecoSeats",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "FlightRule",
+      "field": "ecoNextPriceRatio",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "FlightRule",
+      "field": "flights",
+      "type": "Flight",
+      "arity": "List"
     },
     {
       "tag": "CreateModel",
@@ -59,44 +195,23 @@
     {
       "tag": "CreateField",
       "model": "Flight",
-      "field": "origin",
-      "type": "String",
+      "field": "date",
+      "type": "DateTime",
       "arity": "Required"
     },
     {
       "tag": "CreateField",
       "model": "Flight",
-      "field": "destination",
-      "type": "String",
+      "field": "rule",
+      "type": "FlightRule",
       "arity": "Required"
     },
     {
       "tag": "CreateField",
       "model": "Flight",
-      "field": "businessInitialPrice",
-      "type": "Int",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Flight",
-      "field": "businessSeats",
-      "type": "Int",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Flight",
-      "field": "ecoInitialPrice",
-      "type": "Int",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Flight",
-      "field": "ecoSeats",
-      "type": "Int",
-      "arity": "Required"
+      "field": "seats",
+      "type": "Seat",
+      "arity": "List"
     },
     {
       "tag": "CreateModel",
@@ -215,14 +330,6 @@
       "field": "name",
       "type": "String",
       "arity": "Required"
-    },
-    {
-      "tag": "DeleteModel",
-      "model": "User"
-    },
-    {
-      "tag": "DeleteModel",
-      "model": "Post"
     }
   ]
 }
