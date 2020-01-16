@@ -1,0 +1,38 @@
+{
+  "DATA": [
+    {
+      "NumVols": "00012",
+      "departLocation": "JFK",
+      "departHour": "2020-01-01",
+      "arriverLocation": "CDG",
+      "ArriverHour": "2020-01-01",
+      "percent": 20,
+      "prix": "2000"
+    },
+    {
+      "NumVols": "00689",
+      "departLocation": "DTW",
+      "departHour": "2020-01-01",
+      "arriverLocation": "CDG",
+      "percent": 40,
+      "prix": "2000"
+    },
+    {
+      "NumVols": "00587",
+      "departLocation": "JFK",
+      "departHour": "2020-01-01",
+      "arriverLocation": "DTW",
+      "percent": 90,
+      "prix": "2000"
+    },
+    {
+      "NumVols": "00658",
+      "departLocation": "JFK",
+      "departHour": "2020-01-01",
+      "arriverLocation": "CDG",
+      "percent": 30,
+      "prix": "2000"
+    }
+  ],
+  "items": [{ "label": "JFK" }, { "label": "DTW" }, { "label": "CDG" }]
+}
