@@ -18,6 +18,7 @@
     "dev": "nodemon",
     "prisma-dev": "prisma2 dev",
     "build": "tsc",
-    "start": "node ./dist/index.js"
+    "start": "prisma2 lift up --auto-approve --create-db && node ./dist/index.js",
+    "postinstall": "prisma2 generate"
   }
 }

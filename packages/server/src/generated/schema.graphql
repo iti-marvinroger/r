@@ -26,6 +26,8 @@ type Query {
 }
 
 type Seat {
+  available: Int!
   class: ClassEnum!
   price: Int!
+  total: Int!
 }

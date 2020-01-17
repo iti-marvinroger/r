@@ -11,6 +11,8 @@ query GetAllAvailableFlights($date: Date!) {
     availableSeats {
       class
       price
+      available
+      total
     }
   }
 }

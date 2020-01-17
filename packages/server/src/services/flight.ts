@@ -6,7 +6,7 @@ interface AvailableFlight {
   origin: string;
   destination: string;
   seats: {
-    [classType: string]: { price: number };
+    [classType: string]: { price: number; available: number; total: number };
   };
 }
 
@@ -37,8 +37,16 @@ export const getAvailableFlights = async (
       origin: rule.origin,
       destination: rule.destination,
       seats: {
-        ECO: { price: rule.ecoInitialPrice },
-        BUSINESS: { price: rule.businessInitialPrice }
+        ECO: {
+          price: rule.ecoInitialPrice,
+          available: rule.ecoSeats,
+          total: rule.ecoSeats
+        },
+        BUSINESS: {
+          price: rule.businessInitialPrice,
+          available: rule.businessSeats,
+          total: rule.businessSeats
+        }
       }
     });
   }
@@ -68,6 +76,8 @@ export const getAvailableFlights = async (
           : flight.rule.businessInitialPrice;
       const seatsBooked = flight.seats.filter(seat => seat.class === classType)
         .length;
+
+      availableFlight.seats[classType].available = maxSeats - seatsBooked;
 
       if (seatsBooked === 0) {
         return;
